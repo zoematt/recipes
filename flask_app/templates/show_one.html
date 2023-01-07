@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome {{user.first_name}}</h1>
+    <nav><a href="/dashboard">Dashboard</a> <a href="/new">Create</a> <a href="/logout">Logout</a></nav>
+    <div class="top-bar">
+        <p>{{recipe.name}}</p> <p>{{recipe.user.first_name}}</p>
+        <a href="/new">+ Create</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <table class="">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Under</th>
+                <th>Posted By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                        <td>{{recipe.name}} by {{recipe.user.first_name}}</td>
+                        <td>{% if recipe.under_30: %}
+                            Yes
+                            {% else: %}
+                            No
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="/recipes/{{recipe.id}}">view instructions</a>
+                            <!--edit and delete conditional-->
+                            {% if recipe.user.id == user.id: %}
+                            <a href="/update/{{recipe.id}}">edit</a>
+                            <a href="/recipes/delete/{{recipe.id}}">delete</a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
